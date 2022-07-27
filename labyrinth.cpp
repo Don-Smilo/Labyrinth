@@ -1,4 +1,3 @@
-﻿#include "Functions.h"
 using namespace std;
 
 
@@ -15,7 +14,9 @@ int main() {
     //if (cols % 2 == 0)
     //    cols++;
     matrix = new Cell * [rows];
+
     for (int i = 0; i < rows; i++) {
+
         matrix[i] = new Cell[cols];
     }
     MakeTemp(matrix, rows, cols);

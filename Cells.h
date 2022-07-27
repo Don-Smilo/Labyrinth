@@ -14,7 +14,6 @@ public:
 		return symbol;
 	}
 
-
 protected:
 	char symbol;
 };
@@ -34,8 +33,5 @@ public:
 		this->rows = rows;
 		this->cols = cols;
 	}
-
-
-
 	unsigned int rows, cols;
 };
