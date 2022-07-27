@@ -3,47 +3,65 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "Cells.h"
+
 using namespace std;
 
-typedef char cell;
 
-void MakeMatr(cell** matrix, int rows, int cols) {
+void Output(Cell** matrix, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            matrix[i][j] = '#';
-        }
-    }
-}
-
-void Output(cell** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            cout << matrix[i][j]<<' ';
+            cout << matrix[i][j].GetSymbol() << ' ';
         }
         cout << endl;
     }
 }
 
-void GenLabyrinth(cell** matrix, int rows, int cols) {
-    int i = 1, j = 1;
-    for (; i < rows - 1; i += 2) {
-        for (; j < cols - 1; j += 2) {
+void MakeTemp(Cell** matrix, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if ((i % 2 != 0) && (j % 2 != 0)) {
+                matrix[i][j].SetSymbol(' ');
+            }
+            else {
+                matrix[i][j].SetSymbol('#');
+            }
         }
     }
 }
 
-void RemoveWallUp(cell** matrix, int i, int j) {
-    matrix[i + 1][j] = ' ';
+void RemoveWallUp(Cell** matrix, int i, int j) {
+    matrix[i - 1][j].SetSymbol(' ');
 }
 
-void RemoveWallDown(cell** matrix, int i, int j) {
-    matrix[i - 1][j] = ' ';
+void RemoveWallRight(Cell** matrix, int i, int j) {
+    matrix[i][j + 1].SetSymbol(' ');
 }
 
-void RemoveWalLeft(cell** matrix, int i, int j) {
-    matrix[i][j - 1] = ' ';
-}
+//int CurrentGroup(Cell* row, int num, int group) {
+//    while ((num > 1)&&(row[num-1].GetGroup()==row[num].GetGroup())) {
+//        num--;
+//    }
+//}
 
-void RemoveWallRight(cell** matrix, int i, int j) {
-    matrix[i][j + 1] = ' ';
+void GenLabyrinth(Cell** matrix, unsigned int rows, unsigned int cols) {
+    srand(time(0));
+    unsigned int i, j;
+    for (j = 1; j < cols - 3; j += 2) {
+        RemoveWallRight(matrix, 1, j);
+    }
+    unsigned int group = 1;
+    for (i = 3; i < rows - 1; i += 2) { 
+        for (j = 1; j < cols - 1; j += 2) {
+            group++;
+            if (rand() % 2) {
+                RemoveWallRight(matrix, i, j);
+            }
+            else {
+                RemoveWallUp(matrix, i, (j - rand() % group));
+                group = 0;
+            }
+            group = 0;
+        }
+    }
 }
