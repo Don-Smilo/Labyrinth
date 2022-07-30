@@ -4,7 +4,7 @@ using namespace std;
 
 
 int main() {
-    int cols=61, rows=31;
+    int cols = 61, rows = 31;
     Cell** matrix;
     matrix = new Cell * [rows];
     for (int i = 0; i < rows; i++) {
@@ -12,6 +12,6 @@ int main() {
     }
     MakeTemp(matrix, rows, cols);
     GenLabyrinth(matrix, rows, cols);
-    MakeExit(matrix, rows, cols);
     Output(matrix, rows, cols);
+    system("pause");
 }

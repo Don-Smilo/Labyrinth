@@ -8,18 +8,18 @@
 using namespace std;
 
 
-void Output(Cell** matrix, unsiged int rows, unsiged int cols) {
-    for (unsiged int i = 0; i < rows; i++) {
-        for (unsiged int j = 0; j < cols; j++) {
+void Output(Cell** matrix, unsigned int rows, unsigned int cols) {
+    for (unsigned int i = 0; i < rows; i++) {
+        for (unsigned int j = 0; j < cols; j++) {
             cout << matrix[i][j].GetSymbol() << ' ';
         }
         cout << endl;
     }
 }
 
-void MakeTemp(Cell** matrix, unsiged int rows, unsiged int cols) {
-    for (unsiged int i = 0; i < rows; i++) {
-        for (unsiged int j = 0; j < cols; j++) {
+void MakeTemp(Cell** matrix, unsigned int rows, unsigned int cols) {
+    for (unsigned int i = 0; i < rows; i++) {
+        for (unsigned int j = 0; j < cols; j++) {
             if ((i % 2 != 0) && (j % 2 != 0)) {
                 matrix[i][j].SetSymbol(' ');
             }
@@ -30,8 +30,18 @@ void MakeTemp(Cell** matrix, unsiged int rows, unsiged int cols) {
     }
 }
 
-void RemoveWall(Cell** matrix, unsiged int i, unsiged int j) {
+void RemoveWall(Cell** matrix, unsigned int i, unsigned int j) {
     matrix[i][j].SetSymbol(' ');
+}
+
+void MakeExit(Cell** matrix, unsigned int rows, unsigned int cols) {
+    unsigned int pos = rand() % (cols - 3) + 2;
+    if (pos % 2 == 0){
+        RemoveWall(matrix, rows - 1, pos - 1);
+    }
+    else {
+        RemoveWall(matrix, rows - 1, pos);
+    }
 }
 
 void GenLabyrinth(Cell** matrix, unsigned int rows, unsigned int cols) {
@@ -68,14 +78,5 @@ void GenLabyrinth(Cell** matrix, unsigned int rows, unsigned int cols) {
         }
         group = 0;
     }
-}
-
-void MakeExit(Cell** matrix, unsigned int rows, unsigned int cols) {
-    unsigned int pos = rand() % (cols - 3) + 2;
-    if (pos % 2 == 0){
-        RemoveWall(matrix, rows - 1, pos - 1);
-    }
-    else {
-        RemoveWall(matrix, rows - 1, pos);
-    }
+    MakeExit(matrix, rows, cols);
 }
