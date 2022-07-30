@@ -8,18 +8,18 @@
 using namespace std;
 
 
-void Output(Cell** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+void Output(Cell** matrix, unsiged int rows, unsiged int cols) {
+    for (unsiged int i = 0; i < rows; i++) {
+        for (unsiged int j = 0; j < cols; j++) {
             cout << matrix[i][j].GetSymbol() << ' ';
         }
         cout << endl;
     }
 }
 
-void MakeTemp(Cell** matrix, int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+void MakeTemp(Cell** matrix, unsiged int rows, unsiged int cols) {
+    for (unsiged int i = 0; i < rows; i++) {
+        for (unsiged int j = 0; j < cols; j++) {
             if ((i % 2 != 0) && (j % 2 != 0)) {
                 matrix[i][j].SetSymbol(' ');
             }
@@ -30,7 +30,7 @@ void MakeTemp(Cell** matrix, int rows, int cols) {
     }
 }
 
-void RemoveWall(Cell** matrix, int i, int j) {
+void RemoveWall(Cell** matrix, unsiged int i, unsiged int j) {
     matrix[i][j].SetSymbol(' ');
 }
 
